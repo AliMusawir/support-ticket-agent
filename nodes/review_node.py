@@ -33,4 +33,5 @@ def review_node(state):
     else:
         state["review_result"] = "Rejected"
         state["feedback"] = output
+        state["attempts"] = int(state.get("attempts", 0)) + 1
     return state
