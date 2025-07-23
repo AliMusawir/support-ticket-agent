@@ -1,6 +1,8 @@
-from utils.rag_utils import get_mocked_context
+from utils.rag_utils import db
 
 def retrieve_node(state):
-    category = state.get("category", "General")
-    state["context"] = get_mocked_context(category)
+    query = state["description"]
+    relevant_docs = db.similarity_search(query, k=2)
+    context = "\n".join([doc.page_content for doc in relevant_docs])
+    state["context"] = context
     return state
